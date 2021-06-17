@@ -1,0 +1,14 @@
+{
+    "require": {
+        "php": ">=8.0",
+        "vlucas/phpdotenv": "^5.3",
+        "illuminate/database": "^8.36",
+        "symfony/routing": "^5.2",
+        "twig/twig": "^3.0",
+        "symfony/http-foundation": "^5.2",
+        "vlucas/valitron": "^1.4"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.14"
+    }
+}
