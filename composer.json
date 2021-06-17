@@ -14,7 +14,8 @@
 
     "autoload": {
         "psr-4": {
-            "Nitogram\\Foundation\\": "./foundation"
+            "Nitogram\\Foundation\\": "./foundation",
+            "App\\": "./app"
         }
     }
 }
