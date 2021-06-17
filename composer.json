@@ -10,5 +10,11 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.14"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Nitogram\\Foundation\\": "./foundation"
+        }
     }
 }
