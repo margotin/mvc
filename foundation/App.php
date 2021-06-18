@@ -15,7 +15,7 @@ class App
     public function __construct()
     {
         $this->initDotenv();
-        if (env("APP_ENV", "prod") === "prod") {
+        if (Config::get("app.env") === "prod") {
             $this->initProductionExceptionHandler();
         }
         $this->router = new Router(require ROOT . "/app/routes.php");
