@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nitogram\Foundation\Router;
 
+use Nitogram\Foundation\Exceptions\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
@@ -22,7 +23,13 @@ class Router
     {
         $this->provisionRoutes($routes);
         $this->makeRequestContext();
-        [$this->controller, $this->method] = $this->urlMatching();
+
+        try {
+            [$this->controller, $this->method] = $this->urlMatching();
+        } catch (\Exception) {
+            HttpException::sendResponse();
+        }
+
     }
 
     protected function provisionRoutes(array $routes): void
@@ -58,13 +65,13 @@ class Router
     public function getInstance(): void
     {
         $this->cleanParams();
-        \call_user_func_array([new $this->controller(),$this->method], $this->params);
+        \call_user_func_array([new $this->controller(), $this->method], $this->params);
     }
 
     protected function cleanParams(): void
     {
-        foreach (array_keys($this->params) as $key){
-            if(str_starts_with($key, '_')){
+        foreach (array_keys($this->params) as $key) {
+            if (str_starts_with($key, '_')) {
                 unset($this->params[$key]);
             }
         }
