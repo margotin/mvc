@@ -6,13 +6,15 @@ namespace App\Controllers;
 
 use Faker\Factory;
 use Nitogram\Foundation\AbstractController;
+use Nitogram\Foundation\View;
 
 class BaseController extends AbstractController
 {
     public function index(): void
     {
         $faker = Factory::create();
-        echo "<h1>I love $faker->city !! </h1>";
+        View::render("index", [
+            "city" => $faker->city
+        ]);
     }
-
 }
