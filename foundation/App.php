@@ -18,6 +18,7 @@ class App
         if (Config::get("app.env") === "prod") {
             $this->initProductionExceptionHandler();
         }
+        $this->startSession();
         $this->router = new Router(require ROOT . "/app/routes.php");
     }
 
@@ -34,8 +35,14 @@ class App
         );
     }
 
+    protected function startSession(): void
+    {
+        Session::start();
+    }
+
     public function render(): void
     {
         $this->router->getInstance();
+        Session::resetFlash();
     }
 }
