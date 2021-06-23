@@ -23,6 +23,7 @@ class Router
 
     public function __construct(array $routes)
     {
+        $this->initCsrf();
         $this->provisionRoutes($routes);
         $this->makeRequestContext();
 
@@ -32,6 +33,15 @@ class Router
             HttpException::sendResponse();
         }
 
+    }
+
+    protected function initCsrf(): void
+    {
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+                if(!isset($_POST["_token"]) || $_POST["_token"] !== $_SESSION["_token"]){
+                    HttpException::sendResponse(403, "You don't have do that!");
+            }
+        }
     }
 
     protected function provisionRoutes(array $routes): void

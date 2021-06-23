@@ -39,6 +39,7 @@ class App
     protected function startSession(): void
     {
         Session::start();
+        Session::add("_token", Session::get("_token") ?? $this->generateCsrfToken());
     }
 
     public function render(): void
@@ -50,5 +51,9 @@ class App
     public function getUrlGenerator(): UrlGeneratorInterface
     {
         return $this->router->getUrlGenerator();
+    }
+
+    protected function generateCsrfToken(): string {
+        return bin2hex(random_bytes(Config::get("hashing.csrf_token_length")));
     }
 }
