@@ -6,6 +6,8 @@ namespace Nitogram\Foundation\Router;
 
 use Nitogram\Foundation\Exceptions\HttpException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -75,5 +77,16 @@ class Router
                 unset($this->params[$key]);
             }
         }
+    }
+
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return new UrlGenerator($this->routes, $this->requestContext);
+    }
+
+    public static function getUri(string $routeName, array $data = []): string
+    {
+        $urlGenerator = $GLOBALS['app']->getUrlGenerator();
+        return $urlGenerator->generate($routeName, $data);
     }
 }

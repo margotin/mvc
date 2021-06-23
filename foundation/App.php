@@ -7,6 +7,7 @@ namespace Nitogram\Foundation;
 use Dotenv\Dotenv;
 use Nitogram\Foundation\Exceptions\HttpException;
 use Nitogram\Foundation\Router\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class App
 {
@@ -44,5 +45,10 @@ class App
     {
         $this->router->getInstance();
         Session::resetFlash();
+    }
+
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->router->getUrlGenerator();
     }
 }
